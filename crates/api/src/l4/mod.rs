@@ -5,6 +5,7 @@ pub mod archive;
 pub mod feslive;
 pub mod user;
 pub mod withlive;
+pub mod petal_exchange;
 
 use_common_crate!();
 define_api_struct!(LinkuraApi);
@@ -28,5 +29,9 @@ impl<'a> LinkuraApi<'a> {
 
     pub fn fes_live(&self) -> feslive::FesLiveApi {
         feslive::FesLiveApi { api: self }
+    }
+
+    pub fn petal_exchange(&self) -> petal_exchange::PetalExchangeApi {
+        petal_exchange::PetalExchangeApi { api: self }
     }
 }

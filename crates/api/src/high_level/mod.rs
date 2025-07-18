@@ -212,4 +212,13 @@ impl<'a> HighLevelApi<'a> {
             .ok_or_else(|| anyhow::anyhow!("Get connect token failed: {:?}", json))?;
         Ok(connect_token.to_string())
     }
+
+    pub fn get_petal_exchange_list(&self) -> Result<serde_json::Value> {
+        let res = self.raw().petal_exchange().get_list()?;
+        if res.status() != reqwest::StatusCode::OK {
+            return Err(anyhow::anyhow!("Get petal exchange list failed: {:?}", res));
+        }
+        let json: serde_json::Value = res.json()?;
+        Ok(json)
+    }
 }

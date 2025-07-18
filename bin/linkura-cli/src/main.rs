@@ -53,5 +53,14 @@ fn main() {
         }
     }
 
+    // If user sets --stay-open, wait for an Enter key before exiting
+    if global.args.stay_open {
+        use std::io::{self, Write, BufRead};
+        println!("Press Enter to exit...");
+        let _ = io::stdout().flush();
+        let mut _input = String::new();
+        let _ = io::stdin().read_line(&mut _input);
+    }
+
     return;
 }

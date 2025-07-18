@@ -39,6 +39,10 @@ pub struct Args {
     /// Default is "info".
     pub log_level: Option<String>,
 
+    // 默认为 true，如需关闭请使用 --no-stay-open
+    #[clap(long = "no-stay-open", action = clap::ArgAction::SetFalse)]
+    pub stay_open: bool,
+
     #[clap(long = "player-id", value_name = "PLAYER_ID")]
     pub player_id: Option<String>,
     #[clap(long = "password", value_name = "PASSWORD")]
@@ -337,13 +341,9 @@ pub fn init(args: Args) -> Result<Global> {
         }
     }
 
-    global
-        .config_manager
-        .save_config(&global.config)
-        .context("Failed to save config")?;
+    // 不再自动持久化配置文件，直接提示登录成功
     sp.finish_with_message(format!(
-        "登陆成功！信息已保存至{}，session token: {}",
-        global.config_manager.get_config_path().display(),
+        "登陆成功！session token: {}",
         session_token
     ));
     Ok(global)
