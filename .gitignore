@@ -5,4 +5,4 @@ data
 
 *.exe
 *.json
-!config/card_id.json
+!card_id.json
